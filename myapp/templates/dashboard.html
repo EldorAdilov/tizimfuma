@@ -1,0 +1,492 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUMA ISAK</title>
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/fuma4.png' %}">
+    <link rel="stylesheet" type="text/css" href="#">
+    <style>
+        * {
+    font-family: sans-serif;
+}
+.panel_y {
+    width: 100%;
+    height: 10vh;
+}
+
+.search-input {
+    margin-top: 10px;
+    width: 30%;
+    padding: 13px;
+    border: 2px solid rgba(29, 45, 91, 0.416);
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    font-size: 16px;
+    position: absolute;
+    right: 200px; /* O'ng tomonga suradi */
+}
+.search-input:focus {
+    border-color: rgb(29, 45, 91);
+  }
+
+.search-button {
+    margin-top: 10px;
+    padding: 13px 20px;
+    background-color: rgb(29, 45, 91);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    right: 100px; /* O'ng tomonga suradi */
+  }
+
+.search-button:hover {
+    background-color: rgb(29, 45, 91);
+  }
+.panel_y img {
+    width: 50px;
+    height: 50px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.panel_1, .panel_2, .panel_3 {
+    margin-bottom: 0.8px; /* Pastki tomondan bo'shliq berish */
+}
+.container {
+
+    display: flex;
+    gap: 25px;
+    /*background-color: aliceblue;*/
+
+
+    transition: margin-left 0.3s ease; /* Silliq animatsiya */
+    margin-left: 0;
+}
+.container.shifted {
+    margin-left: 300px; /* Infor_1 kengligiga teng margin */
+}
+
+.infor_1 {
+    /*padding: 20px;*/
+    width: 300px;
+    height: 90vh;
+    flex-shrink: 0;
+
+
+    position: fixed;
+    top: 7px;
+    left: -302px;
+    transition: left 0.3s ease; /* Silliq animatsiya */
+    z-index: 1000; /* Boshqa elementlardan ustun turishi uchun */
+}
+
+.infor_1.open {
+    left: 0; /* Ekran ichiga kiradi */
+}
+.toggle-menu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+
+}
+.menu-next {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+/* Tugma stilizatsiyasi */
+.panel_1 {
+    margin-top: 0vh;
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(29, 45, 91);
+
+}
+
+.panel_1 img,
+.panel_1 p {
+  display: inline-block;
+}
+
+.panel_1 p {
+    color: white; /* Matn rangini oq qilish */
+    font-size: 25px; /* Matn o'lchamini belgilash */
+    vertical-align: top; /* Matnni yuqoriga joylashtirish */
+}
+
+.panel_1 img {
+  margin-right: 10px; /* Rasm va matn orasida bo'shliq */
+}
+
+.panel1img {
+    width: 50px;
+    height: 50px;
+    margin-top: 12px;
+    margin-left: 10px;
+    border-radius: 25px;
+}
+.panel_1 button {
+    background-color: rgb(29, 45, 91);
+}
+.panel_2 {
+    height: 100vh; /* Vertikal holatda to'liq ekran balandligida */
+    display: flex;
+
+    background-color: rgb(29, 45, 91);
+}
+
+.panel_3 {
+    margin-top: 0vh;
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(29, 45, 91);
+    display: flex;
+
+}
+.panel_3 img {
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+.panel_3 h3 {
+    color: #fff;
+}
+
+.nav-links {
+    list-style: none;
+    padding-top: 50px;
+    padding: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 17px;
+    align-items: center;
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+.nav-links a img {
+    margin-right: 6px;
+}
+.nav-links a:hover {
+    color: #bbc3ca;
+    transform: scale(1.1); /* Rasm kattalashadi */
+    filter: brightness(1.1); /* Rasm yorqinroq bo'ladi */
+    transition: all 0.3s ease; /* Animatsiya silliqligi */
+}
+.nav-links a img:hover {
+    transform: scale(1.1); /* Rasm kattalashadi */
+    filter: brightness(1.1); /* Rasm yorqinroq bo'ladi */
+    transition: all 0.3s ease; /* Animatsiya silliqligi */
+}
+
+.infor_3 {
+    border: 1px solid #0b4c5242;
+    width: 100%;
+    height: 88vh;
+    margin-top: 0vh;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 5px rgba(177, 183, 189, 0.5);
+    border-radius: 5px;
+    background-color: azure;
+    overflow-y: auto;
+    transition: transform 0.3s ease; /* Silliq animatsiya */
+}
+
+.profile1 {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile1 img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(29, 45, 91, 0.416);
+            margin-right: 15px;
+            margin-top: 8px;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: azure;
+            border: 1px solid rgba(29, 45, 91, 0.416);
+            box-shadow: 0 4px 8px rgba(29, 45, 91, 0.416);
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .menu a i {
+            margin-right: 10px;
+        }
+
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgb(29, 45, 91);
+        min-width: 200px;
+
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+
+        padding: 10px;
+        text-decoration: none;
+    }
+
+@media (max-width: 768px) {
+    nav * {
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+    .infor_1 {
+        width: 100%;
+        height: 100vh;
+        left: -101%;
+    }
+    .panel_1 {
+        margin-top: -7px;
+    }
+    .nav-links a img {
+        margin-right: 15px;
+    }
+    .panel_2 ul {
+        position: relative;
+        left: 20px;
+    }
+    .dropdown-content {
+        left: 20px;
+    }
+    .infor_1.open {
+        left: 0;
+    }
+
+    .infor_3 {
+        width: 100%;
+        height: 100%;
+        max-height: 90vh;
+        border-radius: 5px;
+        background-color: white;
+        overflow-y: auto;
+        height: calc(100% - 50px); /* Yangi uzunlikni hisoblash */
+    }
+    .myInput {
+        margin-left: 10%;
+        border-radius: 5px;
+        width: 50%;
+        overflow-y: auto;
+
+    }
+    rch-input:focus {
+    border-color: rgb(29, 45, 91);
+    }
+    .search-button {
+        padding: 6px 15px;
+        font-size: 14px;
+
+    }
+    .search-input {
+        margin-top: 9.9px;
+        width: 30%;
+        padding: 5px 30px;
+
+        font-size: 14px;
+        position: absolute;
+        right: 180px;
+    }
+    .profile1 img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 1px solid rgb(29, 45, 91);
+        margin-right: 15px;
+        margin-top: 7px;
+    }
+    .menu a {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 769px) {
+    .infor_1 {
+        width: 300px; /* Katta ekranlarda kengligi */
+        left: -302px;
+        height: 90vh;
+    }
+    .infor_1.open {
+        left: 0; /* Katta ekranda chap tomondan kiradi */
+    }
+}
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="panel_y">
+        <button class="toggle-menu" onclick="toggleMenu()">☰</button> <!-- Infor_1 ni ochish/yopish tugmasi qo'shildi -->
+        <input type="text" placeholder="Qidiruv..." class="search-input">
+        <button class="search-button">Qidiruv</button>
+        <!--<a href="{% url 'profile' %}" id="myLink"><img src='{% static "myapp/images/users.png" %}' alt=""></a> -->
+        <div class="profile1" onclick="togglemenu()">
+            <a href="#" id="myLink"><img src='{% static "myapp/images/users.png" %}' alt=""></a>
+            <div class="menu" id="profileMenu">
+                <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Chiqish</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <nav class="infor_1">
+            <div class="panel_1">
+                <img src="{% static 'myapp/images/fuma.jpg' %}" alt="" class="panel1img">
+                <p>FUMA ISAK</p>
+                <img src="{% static 'myapp/images/next.png' %}" alt="" width="20" height="20" onclick="toggleMenu()" class="menu-next">
+            </div>
+            <div class="panel_3">
+            {% with profile.rasm as user_image %}
+                <img src="{% if user_image %}{% else %}{% static 'myapp/images/users.png' %}{% endif %}" alt="userimg">
+            {% endwith %}
+                <h3>{{ user.username }}</h3>
+            </div>
+            <div class="panel_2">
+                <ul class="nav-links">
+                    <a href="{% url 'dashboard' %}">
+                        <img src='{% static "myapp/images/home-23.png" %}' alt="" width="20" height="20">
+                        <span>Bosh sahifa</span>
+                    </a>
+                    <a href="{% url 'student_list_table' %}">
+                        <img src='{% static "myapp/images/talaba.png" %}' alt="" width="20" height="20">
+                        <span>O'quvchilar</span>
+                    </a>
+                    <a href="{% url 'group_list' %}">
+                        <img src='{% static "myapp/images/group2.png" %}' alt="" width="20" height="20">
+                        <span>Guruhlar</span>
+                    </a>
+                    <a href="{% url 'upload_video' %}">
+                        <img src='{% static "myapp/images/video.png" %}' alt="" width="20" height="20">
+                        <span>Video darsliklar</span>
+                    </a>
+
+
+                    <a href="{% url 'all_exam_results' %}">
+                        <img src='{% static "myapp/images/list.png" %}' alt="" width="20" height="20">
+                        <span>Natijalar</span>
+                    </a>
+                    <a href="{% url 'student_list' %}">
+                        <img src='{% static "myapp/images/money1.png" %}' alt="" width="20" height="20">
+                        <span>To'lovlar</span>
+                    </a>
+
+                    <!-- Dropdown menyu uchun -->
+                    <div class="dropdown">
+                        <a href="#" onclick="toggleDropdown()">
+                            <img src='{% static "myapp/images/imtihon3.png" %}' alt="" width="20" height="20">
+                            <span>Imtihon  ▷</span>
+                        </a>
+                        <div class="dropdown-content" id="examMenu">
+                            <a href="{% url 'teacher_exams' %}">• Mavjud imtihonlar</a>
+                            <a href="{% url 'create_exam' %}">• Yaratish</a>
+                            <a href="{% url 'exam_evaluation' %}">• Baholash</a>
+
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+        <div class="infor_3" id="student-list">
+        </div>
+    </div>
+    <script>
+        function closeStudentList() {
+            var menu = document.querySelector('.infor_1');
+            var studentList = document.getElementById('student-list');
+
+            // 1. `infor_1` ni chapdan chiqarish (ochish)
+            menu.classList.add('open');
+            // 2. `infor_1` ni darhol yopish (kechiktirishsiz)
+            menu.classList.remove('open'); // `infor_1` ni yopish
+            // 3. `infor_3` ni ko'rsatish
+            studentList.style.display = 'block'; // `infor_3` ni qayta ko'rsatish
+        }
+
+        function toggleMenu() {
+            var menu = document.querySelector('.infor_1');
+            var container = document.querySelector('.container');
+
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open'); // Infor_1 ni yopish
+                container.classList.remove('shifted'); // Container marginni qaytarish
+            } else {
+                menu.classList.add('open'); // Infor_1 ni ochish
+                container.classList.add('shifted'); // Containerni siljitish
+            }
+        }
+
+        function togglemenu() {
+        const menu = document.getElementById('profileMenu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleDropdown() {
+        var menu = document.getElementById("examMenu");
+        if (menu.style.display === "block") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "block";
+        }
+    }
+
+    // Close the menu when clicking outside
+    window.addEventListener('click', function(event) {
+        const menu = document.getElementById('profileMenu');
+        const profile = document.querySelector('.profile');
+        if (!profile.contains(event.target)) {
+            menu.style.display = 'none';
+        }
+    });
+
+    </script>
+</body>
+</html>

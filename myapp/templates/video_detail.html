@@ -1,0 +1,95 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>FUMA ISAK</title>
+    <link rel="icon" type="image/png" href="{% static 'myapp/images/fuma4.png' %}">
+    <link rel="stylesheet" type="text/css" href="#">
+    <style>
+    .video-container {
+        background-color: azure;
+        display: flex;
+        flex-direction: column; /* Ichidagi elementlarni vertikal joylashtirish */
+        align-items: center; /* Gorizontal markazlash */
+        justify-content: center; /* Vertikal markazlash */
+        height: 99vh; /* Ekranni to‘liq egallash */
+        text-align: center; /* Matn elementlarini markazga joylashtirish */
+
+        border-radius: 5px;
+    }
+
+    .video-container iframe {
+        border-radius: 15px;
+        height: 85%;
+        width: 99%;
+        margin-top: 10px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.603);
+    }
+    .video-container a {
+        display: inline-block; /* Tugma shakliga keltirish */
+        padding: 10px 680px; /* Tugma hajmini sozlash */
+        margin-top: 1px; /* Videodan pastroqqa tushirish */
+        background-color: rgb(29, 45, 91); /* Tugma orqa foni */
+        color: white; /* Matn rangi */
+        text-decoration: none; /* Ostidagi chiziqni yo‘qotish */
+        font-size: 18px; /* Matn o‘lchami */
+        font-weight: bold; /* Matnni qalin qilish */
+        border-radius: 8px; /* Burchaklarni yumaloqlash */
+        transition: background-color 0.3s ease-in-out; /* Animatsiya qo‘shish */
+    }
+
+@media (max-width: 768px) {
+    .video-container {
+        width: 100%;
+        max-width: 450px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+    }
+
+    .video-container iframe {
+        width: 100%;
+        height: 200px; /* Mobil ekranda balandlik optimal */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-container p {
+        font-size: 14px;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .video-container a {
+        width: 95%;
+        display: inline-block;
+        background: rgb(29, 45, 91);
+        color: #fff;
+        text-decoration: none;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 14px;
+        margin: 0 auto;
+    }
+
+}
+
+
+</style>
+
+</head>
+<body>
+    <div class="video-container">
+
+    <iframe src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+    <p>{{ video.description }}</p>
+    <a href="{% url 'select_group' %}">Ortga qaytish</a>
+</div>
+</body>
+</html>
+
+
